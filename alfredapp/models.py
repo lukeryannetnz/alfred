@@ -1,7 +1,7 @@
 from django.db import models
 import RPi.GPIO as GPIO
 
-class OnOffSwitchAdapter(models.Model):
+class OnOffSwitch(models.Model):
 	location = models.CharField(max_length=200)
 	gpioPinBcmIndex = models.IntegerField(default=4)
 	dateAddedUtc = models.DateTimeField('Date added')
@@ -12,3 +12,6 @@ class OnOffSwitchAdapter(models.Model):
 
 		GPIO.setup(4, GPIO.OUT)
 		GPIO.output(4, 1)
+
+	def __str__(self):
+		return self.location
