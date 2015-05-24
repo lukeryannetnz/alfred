@@ -1,3 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+def devices(request):
+	return HttpResponse("Hello world. This will be a list of devices")
