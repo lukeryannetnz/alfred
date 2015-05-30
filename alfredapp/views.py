@@ -9,6 +9,7 @@ def devices(request):
 	switches =  OnOffSwitch.objects.all()
 	return JsonResponse(serializers.serialize('json', switches), safe=False)
 
+@csrf_exempt
 def devicebyid(request, id):
 	if(request.method == 'GET') :
 		switch = OnOffSwitch.objects.filter(pk=id)
