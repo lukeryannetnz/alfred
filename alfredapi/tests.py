@@ -1,3 +1,16 @@
 from django.test import TestCase
+from alfredapi.models import OnOffSwitch
 
-# Create your tests here.
+class OnOffSwitchTests(TestCase):
+
+    def toggle_flips_state(self):
+        """
+        toggle should invert the state
+        """
+        sut = OnOffSwitch()
+        initialState = sut.getState()
+
+        sut.toggle()
+
+        self.assertNotEqual(sut.state, initialState)
+        sut.toggle()
