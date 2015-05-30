@@ -12,5 +12,5 @@ class OnOffSwitchTests(TestCase):
 
         sut.toggle()
 
-        self.assertNotEqual(sut.state, initialState)
+        self.assertEqual(sut.state, initialState)
         sut.toggle()
