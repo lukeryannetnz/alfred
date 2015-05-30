@@ -11,8 +11,8 @@ class OnOffSwitch(models.Model):
 		GPIO.setwarnings(False)
 		GPIO.setmode(GPIO.BCM)
 
-		GPIO.setup(4, GPIO.OUT)
-		GPIO.output(4, not GPIO.input(4))
+		GPIO.setup(self.gpioPinBcmIndex, GPIO.OUT)
+		GPIO.output(self.gpioPinBcmIndex, not GPIO.input(self.gpioPinBcmIndex))
 
 	def __str__(self):
 		return self.location
