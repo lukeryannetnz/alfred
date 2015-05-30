@@ -1,6 +1,6 @@
 #!/bin/bash
 
 echo "Installing pylink..."
-pip install pylink
+pip install pylint
 
 echo "Setup done"

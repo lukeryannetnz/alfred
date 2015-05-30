@@ -8,9 +8,9 @@ class OnOffSwitchTests(TestCase):
         toggle should invert the state
         """
         sut = OnOffSwitch()
-        initialState = sut.getState()
+        initialstate = sut.get_state()
 
-        sut.toggleState()
+        sut.toggle_state()
 
-        self.assertEqual(sut.state, initialState)
-        sut.toggleState()
+        self.assertEqual(sut.get_state(), initialstate)
+        sut.toggle_state()
