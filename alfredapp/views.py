@@ -20,5 +20,6 @@ def devicebyid(request, id):
 		switch = OnOffSwitch.objects.get(pk=id)
 		if(request.body == 'toggle') :
 			switch.toggle()
+			return HttpResponse()
 	else :
 		return HttpResponseBadRequest()
