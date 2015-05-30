@@ -4,6 +4,5 @@ from . import views
 
 urlpatterns = [
 	url(r'^.*devices$', views.devices, name='devices'),
-	url(r'.*devices/.*^$', views.devicebyid, name='devicebyid')
+	url(r'^.*devices/(?P<id>[0-9]+)$', views.devicebyid, name='devicebyid')
 ]
-
