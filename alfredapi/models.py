@@ -12,7 +12,7 @@ class OnOffSwitch(models.Model):
 		GPIO.setmode(GPIO.BCM)
 
 		GPIO.setup(self.gpioPinBcmIndex, GPIO.OUT)
-		GPIO.output(self.gpioPinBcmIndex, not getState())
+		GPIO.output(self.gpioPinBcmIndex, not self.getState())
 
 		return self.getState()
 
