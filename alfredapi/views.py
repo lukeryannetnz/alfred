@@ -22,7 +22,7 @@ def devicebyid(request, id):
 	elif(request.method == 'PATCH') :
 		switch = OnOffSwitch.objects.get(pk=id)
 		if(request.body == 'toggle') :
-			switch.toggle()
+			switch.toggleState()
 			return HttpResponse()
 	else :
 		return HttpResponseBadRequest()

@@ -10,7 +10,7 @@ class OnOffSwitchTests(TestCase):
         sut = OnOffSwitch()
         initialState = sut.getState()
 
-        sut.toggle()
+        sut.toggleState()
 
         self.assertEqual(sut.state, initialState)
-        sut.toggle()
+        sut.toggleState()
