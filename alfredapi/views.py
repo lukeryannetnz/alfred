@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import OnOffSwitch
 
 def index(request):
-	return render(request, 'index.html', null)
+	return render(request, 'index.html', none)
 
 def devices(request):
 	switches =  OnOffSwitch.objects.all()
