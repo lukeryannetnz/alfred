@@ -8,7 +8,7 @@ import datetime
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('alfredapp', '0002_auto_20150524_0826'),
+        ('alfredapi', '0002_auto_20150524_0826'),
     ]
 
     operations = [

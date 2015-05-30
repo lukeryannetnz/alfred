@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('alfredapp', '0001_initial'),
+        ('alfredapi', '0001_initial'),
     ]
 
     operations = [
