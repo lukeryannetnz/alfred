@@ -1,5 +1,5 @@
 from django.test import TestCase
-from alfredapi.models import OnOffSwitch
+from .models import OnOffSwitch
 
 class OnOffSwitchTests(TestCase):
 
