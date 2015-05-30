@@ -6,6 +6,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import OnOffSwitch
 
+def index(request):
+	return HttpResponse("index")
+
 def devices(request):
 	switches =  OnOffSwitch.objects.all()
 	return JsonResponse(serializers.serialize('json', switches), safe=False)
