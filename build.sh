@@ -1,3 +1,5 @@
 #!/bin/bash
-pylint ./alfredapi/*
 
+python manage.py compilemessages
+
+pylint ./alfredapi/*
