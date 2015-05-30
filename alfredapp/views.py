@@ -10,5 +10,5 @@ def devices(request):
 	return JsonResponse(serializers.serialize('json', switches), safe=False)
 
 def devicebyid(request, id):
-	switch = OnOffSwitch.objects.get(pk=id)
+	switch = OnOffSwitch.objects.filter(pk=id)
 	return JsonResponse(serializers.serialize('json', switch), safe=False)
