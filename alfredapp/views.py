@@ -10,5 +10,13 @@ def devices(request):
 	return JsonResponse(serializers.serialize('json', switches), safe=False)
 
 def devicebyid(request, id):
-	switch = OnOffSwitch.objects.filter(pk=id)
-	return JsonResponse(serializers.serialize('json', switch), safe=False)
+	if(request.method == 'GET') :
+		switch = OnOffSwitch.objects.filter(pk=id)
+		return JsonResponse(serializers.serialize('json', switch), safe=False)
+
+	elif(request.method == 'PATCH') :
+		switch = OnOffSwitch.objects.get(pk=id)
+		if(request.body == 'toggle')
+			switch.toggle()
+	else :
+		return HttpResponseBadRequest()
