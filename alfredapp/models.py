@@ -7,7 +7,7 @@ class OnOffSwitch(models.Model):
 	gpioPinBcmIndex = models.IntegerField(default=4)
 	dateAddedUtc = models.DateTimeField('Date added', default=datetime.now)
 
-	def toggle():
+	def toggle(self):
 		GPIO.setwarnings(False)
 		GPIO.setmode(GPIO.BCM)
 
