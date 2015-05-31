@@ -4,7 +4,6 @@ python:
   - "nightly"
 
 env:
-  - DJANGO=Django==1.9.0
   - DJANGO=Django==1.8.2
   #latest development environment
   - DJANGO=https://github.com/django/django/archive/master.tar.gz
@@ -17,9 +16,8 @@ matrix:
 
 # command to install dependencies
 install:
-  - pip install -q $DJANGO --use-mirrors
-  - pip install -r requirements.txt --use-mirrors
-  - pip install -q https://github.com/praekelt/django-setuptest/archive/f4eacb4a929cdcc853a5c053c282dada5bdedc99.tar.gz --use-mirrors
-
+  - pip install -q $DJANGO
+  - pip install -r requirements.txt
+  - pip install -q https://github.com/praekelt/django-setuptest/archive/f4eacb4a929cdcc853a5c053c282dada5bdedc99.tar.gz
 # command to run tests
 script: python setup.py test
