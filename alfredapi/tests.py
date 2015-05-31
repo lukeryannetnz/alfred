@@ -37,13 +37,13 @@ class DeviceGetAllTests(DeviceApiTests):
     def test_single_item_200(self):
         self.createTestSwitch()
         client = Client()
-        response = client.get("/api/devices/1")
+        response = client.get("/api/devices/")
         self.assertEqual(response.status_code, 200)
 
     def test_single_item_content(self):
         switch = self.createTestSwitch()
         client = Client()
-        response = client.get("/api/devices/1")
+        response = client.get("/api/devices/")
 
         self.assertContains(response, switch.location)
         self.assertContains(response, switch.gpioPinBcmIndex)
@@ -61,3 +61,12 @@ class DeviceGetByIdTests(DeviceApiTests):
         client = Client()
         response = client.get("/api/devices/1")
         self.assertEqual(response.status_code, 200)
+
+    def test_single_item_content(self):
+        switch = self.createTestSwitch()
+        client = Client()
+        response = client.get("/api/devices/1")
+
+        self.assertContains(response, switch.location)
+        self.assertContains(response, switch.gpioPinBcmIndex)
+        self.assertContains(response, switch.pk)
