@@ -5,5 +5,5 @@ DATABASES = {
 }
 
 INSTALLED_APPS = (
-    'alfred',
+    'alfredapi',
 )
