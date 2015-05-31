@@ -6,8 +6,8 @@ from datetime import datetime
 try:
     import RPi.GPIO as GPIO
 except ImportError as e:
-    print "Error occured importing RPi.GPIO. Are you running this code on a non-raspberry pi?"
-    print e
+    print("Error occured importing RPi.GPIO. Are you running this code on a non-raspberry pi?")
+    print(e)
 
 class OnOffSwitch(models.Model):
     ''' An on off switch that can be toggled via GPIO. '''
