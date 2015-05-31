@@ -18,6 +18,5 @@ matrix:
 install:
   - pip install -q $DJANGO
   - pip install -r requirements.txt
-  - pip install -q https://github.com/praekelt/django-setuptest/archive/f4eacb4a929cdcc853a5c053c282dada5bdedc99.tar.gz
 # command to run tests
 script: python manage.py test
