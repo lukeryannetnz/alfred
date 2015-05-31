@@ -2,12 +2,11 @@
 
 from setuptools import setup, find_packages
 
-setup(name='travis-demo',
+setup(name='alfred',
       version='0.1',
-      description='Travis Django app demo.',
-      author='Mathijs de Bruin',
-      author_email='mathijs@mathijsfietst.nl',
-      url='https://github.com/visualspace/travis-demo/',
+      description='Alfred home automation app.',
+      author='LukeR',
+      url='https://github.com/lukeryannetnz/alfred/',
       packages=find_packages(),
       license='License :: Public Domain',
 
