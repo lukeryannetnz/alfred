@@ -19,16 +19,29 @@ class OnOffSwitchTests(TestCase):
         self.assertEqual(sut.get_state(), initialstate)
         sut.toggle_state()
 
-class DeviceTests(TestCase):
-    def test_device_get_all_200(self):
+class DeviceApiTests(TestCase):
+    def createTestSwitch(self):
+        OnOffSwitch.objects.create(location="test switch", gpioPinBcmIndex=1)
+
+class DeviceGetAllTests(DeviceApiTests):
+    def test_empty_200(self):
        client = Client()
        response = client.get("/api/devices/")
        self.assertEqual(response.status_code, 200)
 
-    def test_device_get_all_empty(self):
+    def test_empty_content(self):
         client = Client()
         response = client.get("/api/devices/")
         self.assertEqual(response.content, b'"[]"')
+
+    def test_single_item_200(self):
+        self.createTestSwitch()
+        client = Client()
+        response = client.get("/api/devices/1")
+        self.assertEqual(response.status_code, 200)
+
+
+class DeviceGetByIdTests(DeviceApiTests):
 
     def test_device_get_by_id_wrong_id_404(self):
         client = Client()
@@ -40,6 +53,3 @@ class DeviceTests(TestCase):
         client = Client()
         response = client.get("/api/devices/1")
         self.assertEqual(response.status_code, 200)
-
-    def createTestSwitch(self):
-        OnOffSwitch.objects.create(location="test switch", gpioPinBcmIndex=1)
