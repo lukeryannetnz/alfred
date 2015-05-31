@@ -11,7 +11,7 @@ class OnOffSwitch(models.Model):
 
     def toggle_state(self):
         ''' Toggles the state of the switch. Returns the current state. '''
-        GPIO.setwarnings (False)
+        GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
 
         GPIO.setup(self.gpioPinBcmIndex, GPIO.OUT)
