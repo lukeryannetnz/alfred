@@ -32,7 +32,7 @@ class DeviceGetAllTests(DeviceApiTests):
     def test_empty_content(self):
         client = Client()
         response = client.get("/api/devices/")
-        self.assertEqual(response.content.encode('UTF-8'), '"[]"')
+        self.assertEqual(response.content.decode('UTF-8'), '"[]"')
 
     def test_single_item_200(self):
         self.createTestSwitch()
