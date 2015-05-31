@@ -1,9 +1,8 @@
 from django.test import TestCase
-from .models import OnOffSwitch
 from django.test.utils import setup_test_environment
 from django.test import Client
 
-setup_test_environment()
+from .models import OnOffSwitch
 
 class OnOffSwitchTests(TestCase):
 
@@ -21,7 +20,8 @@ class OnOffSwitchTests(TestCase):
 
 class DeviceApiTests(TestCase):
     def createTestSwitch(self):
-        OnOffSwitch.objects.create(location="test switch", gpioPinBcmIndex=1)
+        switch = OnOffSwitch.objects.create(location="test switch", gpioPinBcmIndex=1)
+        return switch
 
 class DeviceGetAllTests(DeviceApiTests):
     def test_empty_200(self):
@@ -32,7 +32,7 @@ class DeviceGetAllTests(DeviceApiTests):
     def test_empty_content(self):
         client = Client()
         response = client.get("/api/devices/")
-        self.assertEqual(response.content, b'"[]"')
+        self.assertEqual(response.content.encode('UTF-8'), '"[]"')
 
     def test_single_item_200(self):
         self.createTestSwitch()
@@ -40,6 +40,14 @@ class DeviceGetAllTests(DeviceApiTests):
         response = client.get("/api/devices/1")
         self.assertEqual(response.status_code, 200)
 
+    def test_single_item_content(self):
+        switch = self.createTestSwitch()
+        client = Client()
+        response = client.get("/api/devices/1")
+
+        self.assertContains(response, switch.location)
+        self.assertContains(response, switch.gpioPinBcmIndex)
+        self.assertContains(response, switch.pk)
 
 class DeviceGetByIdTests(DeviceApiTests):
 

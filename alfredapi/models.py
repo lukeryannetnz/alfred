@@ -1,7 +1,7 @@
 ''' Models for the alfred api '''
 from django.db import models
+from django.utils import timezone
 import sys
-from datetime import datetime
 
 try:
     import RPi.GPIO as GPIO
@@ -13,7 +13,7 @@ class OnOffSwitch(models.Model):
     ''' An on off switch that can be toggled via GPIO. '''
     location = models.CharField(max_length=200)
     gpioPinBcmIndex = models.IntegerField(default=4)
-    dateAddedUtc = models.DateTimeField('Date added', default=datetime.now)
+    dateAddedUtc = models.DateTimeField('Date added', default=timezone.now())
 
     def toggle_state(self):
         ''' Toggles the state of the switch. Returns the current state. '''
