@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "homepage": "https://github.com/lukeryannetnz/alfred",
   "authors": [
-    "lukeryan <hello@lukeryan.net.nz>"
+    "lukeryannetnz <hello@lukeryan.net.nz>"
   ],
   "description": "Your personal butler. Automates your home.",
   "ignore": [
