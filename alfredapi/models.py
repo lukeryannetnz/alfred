@@ -5,7 +5,7 @@ from datetime import datetime
 
 try:
     import RPi.GPIO as GPIO
-except ImportError as e:
+except Exception as e:
     print("Error occured importing RPi.GPIO. Are you running this code on a non-raspberry pi?")
     print(e)
 
