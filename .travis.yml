@@ -8,12 +8,6 @@ env:
   #latest development environment
   - DJANGO=https://github.com/django/django/archive/master.tar.gz
 
-matrix:
-  allow_failures:
-    # Django 1.5a1 is still buggy so it's okay to fail
-    # Still; if it works, that's nice to know!
-    #- env: DJANGO=https://www.djangoproject.com/download/1.5b2/tarball/
-
 # command to install dependencies
 install:
   - pip install -q $DJANGO
