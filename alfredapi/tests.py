@@ -3,7 +3,7 @@ from .models import OnOffSwitch
 
 class OnOffSwitchTests(TestCase):
 
-    def toggle_flips_state(self):
+    def test_toggle_flips_state(self):
         """
         toggle should invert the state
         """
