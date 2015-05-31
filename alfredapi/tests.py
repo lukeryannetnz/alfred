@@ -28,7 +28,7 @@ class DeviceTests(TestCase):
     def test_device_get_all_empty(self):
         client = Client()
         response = client.get("/api/devices/")
-        self.assertEqual(response.content, '"[]"')
+        self.assertEqual(response.content, b'"[]"')
 
     def test_device_get_by_id_wrong_id_404(self):
         client = Client()
