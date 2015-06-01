@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.test.utils import setup_test_environment
 from django.test import Client
+from django.core import serializers
 
 from .models import OnOffSwitch
 
@@ -48,6 +49,25 @@ class DeviceGetAllTests(DeviceApiTests):
         self.assertContains(response, switch.location)
         self.assertContains(response, switch.gpioPinBcmIndex)
         self.assertContains(response, switch.pk)
+
+    # def test_three_items_content(self):
+    #     switch1 = self.createTestSwitch()
+    #     switch2 = self.createTestSwitch()
+    #     switch3 = self.createTestSwitch()
+    #
+    #     client = Client()
+    #     response = client.get("/api/devices/")
+    #
+    #     expected = serializers.serialize('json', [switch1, switch2, switch3])
+    #
+    #     print(response.content)
+    #
+    #     for o in serializers.deserialize('json', response.content):
+    #         print(o)
+    #
+
+
+        #self.assertEqual(response.content, expected)
 
 class DeviceGetByIdTests(DeviceApiTests):
 

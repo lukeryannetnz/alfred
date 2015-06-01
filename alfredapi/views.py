@@ -8,10 +8,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import OnOffSwitch
 
-def index(request):
-    ''' renders the default app index. TODO move this '''
-    return render(request, 'index.html', None)
-
 def devices(request):
     ''' Returns the full list of device objects. '''
     switches = OnOffSwitch.objects.all()

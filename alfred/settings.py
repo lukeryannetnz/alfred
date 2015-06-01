@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gunicorn',
-    'alfredapi'
+    'alfredapi',
+    'alfredui'
 )
 
 MIDDLEWARE_CLASSES = (
