@@ -90,7 +90,28 @@
          });
 
          var DeviceList = React.createClass({
+           getInitialState: function(){
+                return { devices: [] };
+            },
+           componentDidMount: function(){
+              // When the component loads, send a jQuery AJAX request
+              var self = this;
+
+              var url = 'http://alfred/api/devices/';
+              $.getJSON(url, function(result){
+                  if(!result || !result.data || !result.data.length){
+                      return;
+                  }
+
+              });
+
+              // Update the component's state. This will trigger a render.
+              // Note that this only updates the pictures property, and does
+              // not remove the favorites array.
+              // self.setState({ devices: devices });
+           },
            render: function(){
+             var self = this;
 
              return <h1>hello world from a react class</h1>;
            }
