@@ -13,7 +13,8 @@ class OnOffSwitch(models.Model):
     ''' An on off switch that can be toggled via GPIO. '''
     location = models.CharField(max_length=200)
     gpioPinBcmIndex = models.IntegerField(default=4)
-    dateAddedUtc = models.DateTimeField('Date added', default=timezone.now())
+    description =  models.CharField(max_length=200, default='')
+    dateAddedUtc = models.DateTimeField('Date added', default=timezone.now)
 
     def toggle_state(self):
         ''' Toggles the state of the switch. Returns the current state. '''
