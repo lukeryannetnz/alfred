@@ -50,6 +50,14 @@ class DeviceGetAllTests(DeviceApiTests):
         self.assertContains(response, switch.gpioPinBcmIndex)
         self.assertContains(response, switch.pk)
 
+    def test_single_item_content_description(self):
+        switch = OnOffSwitch.objects.create(location="test", description="test_description", gpioPinBcmIndex=1)
+
+        client = Client()
+        response = client.get("/api/devices/")
+        
+        self.assertContains(response, '"description": "test_description"')
+
     # def test_three_items_content(self):
     #     switch1 = self.createTestSwitch()
     #     switch2 = self.createTestSwitch()
