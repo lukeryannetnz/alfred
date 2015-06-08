@@ -62,7 +62,7 @@
                         <div className ="image" style={divStyle}></div>
                         <div className="caption">
                           <h3>{this.props.location}</h3>
-                          <p>We're havin' a BBQ! Light it up out there!</p>
+                          <p>{this.props.description}</p>
                           <p><a href="#" className="btn btn-primary" role="button">Button</a> <a href="#" className="btn btn-default" role="button">Button</a></p>
                         </div>
                       </div>
@@ -97,7 +97,7 @@
                console.log("render triggered")
 
                var deviceComponents = this.state.devices.map(function(d){
-                  return <Device location={d.location} key={d.pk} />
+                  return <Device location={d.location} description={d.description} key={d.pk} />
                });
 
 
