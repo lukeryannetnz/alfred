@@ -9,12 +9,14 @@ except Exception as e:
     print("Error occured importing RPi.GPIO. Are you running this code on a non-raspberry pi?")
     print(e)
 
-class OnOffSwitch(models.Model):
-    ''' An on off switch that can be toggled via GPIO. '''
-    location = models.CharField(max_length=200)
-    gpioPinBcmIndex = models.IntegerField(default=4)
+class Device(models.Model):
     description =  models.CharField(max_length=200, default='')
     dateAddedUtc = models.DateTimeField('Date added', default=timezone.now)
+    location = models.CharField(max_length=200)
+
+class OnOffSwitch(Device):
+    ''' An on off switch that can be toggled via GPIO. '''
+    gpioPinBcmIndex = models.IntegerField(default=4)
 
     def toggle_state(self):
         ''' Toggles the state of the switch. Returns the current state. '''
