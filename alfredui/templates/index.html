@@ -59,13 +59,13 @@
 
              handleClick: function(event){
                 that = this;
-                console.log('click' + this.props.pk)
+                console.log('click' + that.props.pk)
                 $.ajax({
                   headers : {
                       'Accept' : 'application/json',
                       'Content-Type' : 'application/text'
                   },
-                  url : '/api/devices/' + this.props.pk,
+                  url : '/api/devices/' + that.props.pk,
                   type : 'PATCH',
                   data : 'toggle',
                   success : function(response, textStatus, jqXhr) {
@@ -79,7 +79,6 @@
              },
 
              render: function(){
-
                   var buttonclasses = 'btn btn-primary btn-lg';
                   if(this.state.toggled){
                     buttonclasses = buttonclasses + ' active';
