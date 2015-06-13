@@ -51,21 +51,41 @@
 
       <script type="text/jsx">
            var Device = React.createClass({
+
+             handleClick: function(event){
+                console.log('click' + this.props.pk)
+                $.ajax({
+                  headers : {
+                      'Accept' : 'application/json',
+                      'Content-Type' : 'application/text'
+                  },
+                  url : '/api/devices/' + this.props.pk,
+                  type : 'PATCH',
+                  data : 'toggle',
+                  success : function(response, textStatus, jqXhr) {
+                      console.log("Device Successfully Patched!");
+                  },
+                  error : function(jqXHR, textStatus, errorThrown) {
+                      console.log("The following error occured: " + textStatus, errorThrown);
+                  }
+                });
+             },
+
              render: function(){
 
-               var imageStyle = {
+                  var imageStyle = {
                   backgroundImage: 'url(' + this.props.image + ')',
-                };
-               return     <div className="col-sm-6 col-md-4">
-                      <div className="thumbnail">
-                        <div className ="image" style={imageStyle}></div>
-                        <div className="caption">
-                          <h3>{this.props.location}</h3>
-                          <p>{this.props.description}</p>
-                          <p><a href="#" className="btn btn-primary" role="button">Button</a> <a href="#" className="btn btn-default" role="button">Button</a></p>
-                        </div>
-                      </div>
-                    </div>
+                  };
+                  return <div className="col-sm-6 col-md-4">
+                          <div className="thumbnail">
+                            <div className ="image" style={imageStyle}></div>
+                            <div className="caption">
+                              <h3>{this.props.location}</h3>
+                              <p>{this.props.description}</p>
+                              <p><a className="btn btn-primary btn-lg" role="button" onClick={this.handleClick}>On/Off</a></p>
+                            </div>
+                          </div>
+                         </div>
              }
            });
 
@@ -96,7 +116,7 @@
                console.log("render triggered")
 
                var deviceComponents = this.state.devices.map(function(d){
-                  return <Device location={d.location} description={d.description} key={d.pk} image={d.image} />
+                  return <Device location={d.location} description={d.description} key={d.pk} pk={d.pk} image={d.image} />
                });
 
 
