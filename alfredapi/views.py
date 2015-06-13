@@ -29,7 +29,7 @@ def device_by_id(request, identifier):
     if request.method == 'GET':
         switch = get_object_or_404(OnOffSwitch, pk=identifier)
 
-        return JsonResponse(dict(pk=switch.pk, location=switch.location, dateAddedUtc=switch.dateAddedUtc, image=switch.image_url, safe=False))
+        return JsonResponse(dict(pk=switch.pk, location=switch.location, dateAddedUtc=switch.dateAddedUtc, image=switch.image_url), safe=False)
 
     elif request.method == 'PATCH':
         switch = OnOffSwitch.objects.get(pk=identifier)
