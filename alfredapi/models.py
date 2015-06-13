@@ -13,7 +13,7 @@ class Device(models.Model):
     description =  models.CharField(max_length=200, default='')
     dateAddedUtc = models.DateTimeField('Date added', default=timezone.now)
     location = models.CharField(max_length=200)
-
+    image = models.ImageField(upload_to='uploads/%Y/%m/%d/')
     class Meta:
         abstract = True
 

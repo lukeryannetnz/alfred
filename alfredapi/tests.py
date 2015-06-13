@@ -95,8 +95,6 @@ class DeviceGetByIdTests(DeviceApiTests):
         client = Client()
         response = client.get("/api/devices/1")
 
-        print(response)
-
         self.assertContains(response, switch.location)
         self.assertContains(response, switch.gpioPinBcmIndex)
         self.assertContains(response, switch.pk)
