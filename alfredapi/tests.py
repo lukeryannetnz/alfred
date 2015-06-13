@@ -55,7 +55,7 @@ class DeviceGetAllTests(DeviceApiTests):
 
         client = Client()
         response = client.get("/api/devices/")
-        
+
         self.assertContains(response, '"description": "test_description"')
 
     # def test_three_items_content(self):
@@ -94,6 +94,8 @@ class DeviceGetByIdTests(DeviceApiTests):
         switch = self.createTestSwitch()
         client = Client()
         response = client.get("/api/devices/1")
+
+        print(response)
 
         self.assertContains(response, switch.location)
         self.assertContains(response, switch.gpioPinBcmIndex)

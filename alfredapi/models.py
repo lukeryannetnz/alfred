@@ -14,6 +14,9 @@ class Device(models.Model):
     dateAddedUtc = models.DateTimeField('Date added', default=timezone.now)
     location = models.CharField(max_length=200)
 
+    class Meta:
+        abstract = True
+
 class OnOffSwitch(Device):
     ''' An on off switch that can be toggled via GPIO. '''
     gpioPinBcmIndex = models.IntegerField(default=4)
