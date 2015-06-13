@@ -58,6 +58,7 @@
 
 
              handleClick: function(event){
+                that = this;
                 console.log('click' + this.props.pk)
                 $.ajax({
                   headers : {
@@ -68,7 +69,7 @@
                   type : 'PATCH',
                   data : 'toggle',
                   success : function(response, textStatus, jqXhr) {
-                      this.setState({toggled: !this.state.toggled});
+                      that.setState({toggled: !that.state.toggled});
                       console.log("Device Successfully Patched!");
                   },
                   error : function(jqXHR, textStatus, errorThrown) {
