@@ -36,7 +36,7 @@ class OnOffSwitchTests(TestCase):
 
 class DeviceApiTests(TestCase):
     def createTestSwitch(self):
-        switch = OnOffSwitch.objects.create(location="test switch", gpioPinBcmIndex=1)
+        switch = OnOffSwitch.objects.create(location="test switch", gpioPinBcmIndex=15, description="test description")
         return switch
 
 class DeviceGetAllTests(DeviceApiTests):
@@ -64,7 +64,7 @@ class DeviceGetAllTests(DeviceApiTests):
         response = client.get("/api/devices/")
 
         self.assertContains(response, switch.location)
-        self.assertContains(response, switch.gpioPinBcmIndex)
+        self.assertContains(response, switch.description)
         self.assertContains(response, switch.pk)
 
     def test_single_item_content_description(self):
@@ -102,7 +102,7 @@ class DeviceGetByIdTests(DeviceApiTests):
         response = client.get("/api/devices/1")
 
         self.assertContains(response, switch.location)
-        self.assertContains(response, switch.gpioPinBcmIndex)
+        self.assertContains(response, switch.description)
         self.assertContains(response, switch.pk)
 
     def test_single_item_image(self):
