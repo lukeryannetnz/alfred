@@ -52,6 +52,11 @@
       <script type="text/jsx">
            var Device = React.createClass({
 
+             getInitialState: function() {
+              return {toggled: false};
+             },
+
+
              handleClick: function(event){
                 console.log('click' + this.props.pk)
                 $.ajax({
@@ -63,6 +68,7 @@
                   type : 'PATCH',
                   data : 'toggle',
                   success : function(response, textStatus, jqXhr) {
+                      this.setState({toggled: !this.state.toggled});
                       console.log("Device Successfully Patched!");
                   },
                   error : function(jqXHR, textStatus, errorThrown) {
@@ -73,6 +79,11 @@
 
              render: function(){
 
+                  var buttonclasses = 'btn btn-primary btn-lg';
+                  if(this.state.toggled){
+                    buttonclasses = buttonclasses + ' active';
+                  }
+
                   var imageStyle = {
                   backgroundImage: 'url(' + this.props.image + ')',
                   };
@@ -82,7 +93,7 @@
                             <div className="caption">
                               <h3>{this.props.location}</h3>
                               <p>{this.props.description}</p>
-                              <p><a className="btn btn-primary btn-lg" role="button" onClick={this.handleClick}>On/Off</a></p>
+                              <p><a className={buttonclasses} role="button" onClick={this.handleClick}>On/Off</a></p>
                             </div>
                           </div>
                          </div>
@@ -97,7 +108,7 @@
                 // When the component loads, send a jQuery AJAX request
                 var self = this;
 
-                var url = '/api/devices/';
+                var url = 'api/devices/';
                 $.getJSON(url, function(result){
                     if(!result || !result.items || !result.items.length){
                         console.log("no data returned")
