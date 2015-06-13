@@ -56,6 +56,8 @@ class DeviceGetAllTests(DeviceApiTests):
         response = client.get("/api/devices/")
         self.assertEqual(response.status_code, 200)
 
+        print(response)
+
     def test_single_item_content(self):
         switch = self.createTestSwitch()
         client = Client()
@@ -72,6 +74,14 @@ class DeviceGetAllTests(DeviceApiTests):
         response = client.get("/api/devices/")
 
         self.assertContains(response, '"description": "test_description"')
+
+    def test_single_item_image(self):
+        switch = OnOffSwitch.objects.create(location="test", description="test_description", gpioPinBcmIndex=1)
+
+        client = Client()
+        response = client.get("/api/devices/")
+
+        self.assertContains(response, '"image": "#"')
 
 class DeviceGetByIdTests(DeviceApiTests):
 

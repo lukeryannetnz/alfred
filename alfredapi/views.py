@@ -11,7 +11,17 @@ from .models import OnOffSwitch
 def devices(request):
     ''' Returns the full list of device objects. '''
     switches = OnOffSwitch.objects.all()
-    return JsonResponse(dict(items=list(OnOffSwitch.objects.values('pk', 'location', 'description'))), safe=False)
+    values = []
+
+    for switch in switches:
+        s = {}
+        s['pk'] = switch.pk
+        s['location'] = switch.location
+        s['description'] = switch.description
+        s['image'] = switch.image_url
+        values.append(s)
+
+    return JsonResponse({'items' : values }, safe=False)
 
 @csrf_exempt
 def device_by_id(request, identifier):
