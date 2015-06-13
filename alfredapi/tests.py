@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.test.utils import setup_test_environment
 from django.test import Client
 from django.core import serializers
+from django.core.files.base import ContentFile
 
 from .models import OnOffSwitch
 
@@ -9,7 +10,7 @@ class OnOffSwitchTests(TestCase):
 
     def ignore_toggle_flips_state(self):
         """
-        Ignored as these can only run on raspberry pi
+        Ignored (by not starting name with test_) as this can only run on raspberry pi
         """
         sut = OnOffSwitch()
         initialstate = sut.get_state()
@@ -18,6 +19,20 @@ class OnOffSwitchTests(TestCase):
 
         self.assertEqual(sut.get_state(), initialstate)
         sut.toggle_state()
+
+    def test_image_url_no_image(self):
+        sut = OnOffSwitch()
+        imageUrl = sut.image_url
+
+        self.assertEqual('#', imageUrl)
+
+    def test_image_url_with_image(self):
+        sut = OnOffSwitch()
+        sut.image.save('testimg.jpg', ContentFile('A string with the test file content'))
+        imageUrl = sut.image_url
+
+        self.assertTrue(imageUrl.startswith('/media/uploads'))
+        self.assertTrue(imageUrl.find('testimg') > 0)
 
 class DeviceApiTests(TestCase):
     def createTestSwitch(self):
@@ -58,25 +73,6 @@ class DeviceGetAllTests(DeviceApiTests):
 
         self.assertContains(response, '"description": "test_description"')
 
-    # def test_three_items_content(self):
-    #     switch1 = self.createTestSwitch()
-    #     switch2 = self.createTestSwitch()
-    #     switch3 = self.createTestSwitch()
-    #
-    #     client = Client()
-    #     response = client.get("/api/devices/")
-    #
-    #     expected = serializers.serialize('json', [switch1, switch2, switch3])
-    #
-    #     print(response.content)
-    #
-    #     for o in serializers.deserialize('json', response.content):
-    #         print(o)
-    #
-
-
-        #self.assertEqual(response.content, expected)
-
 class DeviceGetByIdTests(DeviceApiTests):
 
     def test_device_get_by_id_wrong_id_404(self):
@@ -98,3 +94,12 @@ class DeviceGetByIdTests(DeviceApiTests):
         self.assertContains(response, switch.location)
         self.assertContains(response, switch.gpioPinBcmIndex)
         self.assertContains(response, switch.pk)
+
+    def test_single_item_image(self):
+        switch = self.createTestSwitch()
+        switch.image.save('imgfilename.jpg', ContentFile('A string with the test file content'))
+
+        client = Client()
+        response = client.get("/api/devices/1")
+        print(response)
+        self.assertContains(response, switch.image.url)

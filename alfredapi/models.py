@@ -1,7 +1,9 @@
 ''' Models for the alfred api '''
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 import sys
+import os
 
 try:
     import RPi.GPIO as GPIO
@@ -14,6 +16,15 @@ class Device(models.Model):
     dateAddedUtc = models.DateTimeField('Date added', default=timezone.now)
     location = models.CharField(max_length=200)
     image = models.ImageField(upload_to='uploads/%Y/%m/%d/')
+
+    @property
+    def image_url(self):
+        """Gets the relative url for the image."""
+        if self.image and hasattr(self.image, 'url'):
+            return os.path.join(settings.MEDIA_URL ,self.image.url)
+        else:
+            return '#'
+
     class Meta:
         abstract = True
 
