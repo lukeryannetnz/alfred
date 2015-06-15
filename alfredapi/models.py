@@ -32,23 +32,29 @@ class OnOffSwitch(Device):
     ''' An on off switch that can be toggled via GPIO. '''
     gpioPinBcmIndex = models.IntegerField(default=4)
 
+    ''' todo: move this to a constructor or __init__ function so it only gets run once'''
+    def initialise_gpio(sender, **kwargs):
+        if 'GPIO' in globals():
+            GPIO.setwarnings(False)
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(self.gpioPinBcmIndex, GPIO.OUT)
+
     def toggle_state(self):
         ''' Toggles the state of the switch. Returns the current state. '''
 
+        self.initialise_gpio()
+
         if 'GPIO' not in globals():
-            print("RPi.GPIO not loaded. Can't toggle state. Returning false.")
-            return False;
-
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BCM)
-
-        GPIO.setup(self.gpioPinBcmIndex, GPIO.OUT)
-        GPIO.output(self.gpioPinBcmIndex, not self.get_state())
+            print("RPi.GPIO not loaded. Can't toggle state.")
+        else:
+            GPIO.output(self.gpioPinBcmIndex, not self.get_state())
 
         return self.get_state()
 
     def get_state(self):
         ''' Returns the current state of the switch '''
+
+        self.initialise_gpio()
 
         if 'GPIO' not in globals():
             print("RPi.GPIO not loaded. Can't load state. Returning Off.")
