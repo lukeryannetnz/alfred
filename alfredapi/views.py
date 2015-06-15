@@ -19,6 +19,7 @@ def devices(request):
         s['location'] = switch.location
         s['description'] = switch.description
         s['image'] = switch.image_url
+        s['state'] = switch.get_state()
         values.append(s)
 
     return JsonResponse({'items' : values }, safe=False)
@@ -29,12 +30,12 @@ def device_by_id(request, identifier):
     if request.method == 'GET':
         switch = get_object_or_404(OnOffSwitch, pk=identifier)
 
-        return JsonResponse(dict(pk=switch.pk, location=switch.location, description=switch.description, image=switch.image_url), safe=False)
+        return JsonResponse(dict(pk=switch.pk, location=switch.location, description=switch.description, image=switch.image_url, state=switch.get_state()), safe=False)
 
     elif request.method == 'PATCH':
         switch = OnOffSwitch.objects.get(pk=identifier)
         if request.body == 'toggle':
             switch.toggle_state()
             return HttpResponse()
-    else:
-        return HttpResponseBadRequest()
+
+    return HttpResponseBadRequest()

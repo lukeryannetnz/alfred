@@ -34,6 +34,11 @@ class OnOffSwitch(Device):
 
     def toggle_state(self):
         ''' Toggles the state of the switch. Returns the current state. '''
+
+        if 'GPIO' not in globals():
+            print("RPi.GPIO not loaded. Can't toggle state. Returning false.")
+            return False;
+
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
 
@@ -44,6 +49,11 @@ class OnOffSwitch(Device):
 
     def get_state(self):
         ''' Returns the current state of the switch '''
+
+        if 'GPIO' not in globals():
+            print("RPi.GPIO not loaded. Can't load state. Returning Off.")
+            return "Off";
+
         return GPIO.input(self.gpioPinBcmIndex)
 
     def __str__(self):

@@ -83,6 +83,14 @@ class DeviceGetAllTests(DeviceApiTests):
 
         self.assertContains(response, '"image": "#"')
 
+    def test_single_item_state(self):
+        switch = self.createTestSwitch()
+
+        client = Client()
+        response = client.get("/api/devices/")
+
+        self.assertContains(response, '"state": "Off"')
+
 class DeviceGetByIdTests(DeviceApiTests):
 
     def test_device_get_by_id_wrong_id_404(self):
@@ -96,7 +104,7 @@ class DeviceGetByIdTests(DeviceApiTests):
         response = client.get("/api/devices/1")
         self.assertEqual(response.status_code, 200)
 
-    def test_single_item_content(self):
+    def test_device_get_by_id_content(self):
         switch = self.createTestSwitch()
         client = Client()
         response = client.get("/api/devices/1")
@@ -105,7 +113,15 @@ class DeviceGetByIdTests(DeviceApiTests):
         self.assertContains(response, switch.description)
         self.assertContains(response, switch.pk)
 
-    def test_single_item_image(self):
+    def test_device_get_by_id_state(self):
+        switch = self.createTestSwitch()
+
+        client = Client()
+        response = client.get("/api/devices/1")
+
+        self.assertContains(response, '"state": "Off"')
+
+    def test_device_get_by_id_image(self):
         switch = self.createTestSwitch()
         switch.image.save('imgfilename.jpg', ContentFile('A string with the test file content'))
 
@@ -113,3 +129,16 @@ class DeviceGetByIdTests(DeviceApiTests):
         response = client.get("/api/devices/1")
         print(response)
         self.assertContains(response, switch.image.url)
+
+class DevicePatchByIdTests(DeviceApiTests):
+    def test_device_patch_by_id_invalid_payload(self):
+        switch = self.createTestSwitch()
+        client = Client()
+        response = client.patch("/api/devices/1", "invalid patch document")
+        self.assertEqual(response.status_code, 400)
+
+    def test_device_patch_by_id_toggle(self):
+        switch = self.createTestSwitch()
+        client = Client()
+        response = client.patch("/api/devices/1", "toggle")
+        self.assertEqual(response.status_code, 200)
