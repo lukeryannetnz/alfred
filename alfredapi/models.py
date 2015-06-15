@@ -33,7 +33,7 @@ class OnOffSwitch(Device):
     gpioPinBcmIndex = models.IntegerField(default=4)
 
     ''' todo: move this to a constructor or __init__ function so it only gets run once'''
-    def initialise_gpio(sender, **kwargs):
+    def initialise_gpio(self):
         if 'GPIO' in globals():
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
