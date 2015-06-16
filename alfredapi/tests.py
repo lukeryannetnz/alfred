@@ -88,8 +88,7 @@ class DeviceGetAllTests(DeviceApiTests):
 
         client = Client()
         response = client.get("/api/devices/")
-
-        self.assertContains(response, '"state": "Off"')
+        self.assertContains(response, '"state": 0')
 
 class DeviceGetByIdTests(DeviceApiTests):
 
@@ -118,8 +117,9 @@ class DeviceGetByIdTests(DeviceApiTests):
 
         client = Client()
         response = client.get("/api/devices/1")
+        print(response)
 
-        self.assertContains(response, '"state": "Off"')
+        self.assertContains(response, '"state": 0')
 
     def test_device_get_by_id_image(self):
         switch = self.createTestSwitch()
@@ -127,7 +127,6 @@ class DeviceGetByIdTests(DeviceApiTests):
 
         client = Client()
         response = client.get("/api/devices/1")
-        print(response)
         self.assertContains(response, switch.image.url)
 
 class DevicePatchByIdTests(DeviceApiTests):

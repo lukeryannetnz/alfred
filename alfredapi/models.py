@@ -57,8 +57,8 @@ class OnOffSwitch(Device):
         self.initialise_gpio()
 
         if 'GPIO' not in globals():
-            print("RPi.GPIO not loaded. Can't load state. Returning Off.")
-            return "Off";
+            print("RPi.GPIO not loaded. Can't load state. Returning 0 (off).")
+            return 0;
 
         return GPIO.input(self.gpioPinBcmIndex)
 
