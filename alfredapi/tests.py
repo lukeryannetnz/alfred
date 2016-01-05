@@ -139,5 +139,5 @@ class DevicePatchByIdTests(DeviceApiTests):
     def test_device_patch_by_id_toggle(self):
         switch = self.createTestSwitch()
         client = Client()
-        response = client.patch("/api/devices/1", "toggle")
+        response = client.patch("/api/devices/1", 'toggle')
         self.assertEqual(response.status_code, 200)
