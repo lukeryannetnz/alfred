@@ -38,4 +38,5 @@ def device_by_id(request, identifier):
             switch.toggle_state()
             return HttpResponse()
 
+    print(request.method)
     return HttpResponseBadRequest()
