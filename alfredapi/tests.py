@@ -117,8 +117,6 @@ class DeviceGetByIdTests(DeviceApiTests):
 
         client = Client()
         response = client.get("/api/devices/1")
-        print(response)
-
         self.assertContains(response, '"state": 0')
 
     def test_device_get_by_id_image(self):
