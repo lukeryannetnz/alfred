@@ -35,8 +35,11 @@ def device_by_id(request, identifier):
     elif request.method == 'PATCH':
         switch = OnOffSwitch.objects.get(pk=identifier)
         if request.body == 'toggle':
+            print('about to toggle')
             switch.toggle_state()
+            print('finished toggling')
             return HttpResponse()
 
     print(request.method)
+    print(request.body)
     return HttpResponseBadRequest()
