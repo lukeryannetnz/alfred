@@ -33,6 +33,7 @@ def device_by_id(request, identifier):
         return JsonResponse(dict(pk=switch.pk, location=switch.location, description=switch.description, image=switch.image_url, state=switch.get_state()), safe=False)
 
     elif request.method == 'PATCH':
+        print('about to get switch object from db')
         switch = OnOffSwitch.objects.get(pk=identifier)
         if request.body == 'toggle':
             print('about to toggle')
